@@ -6,6 +6,7 @@ import domain.Person;
 import domain.course.Course;
 import domain.course.CourseID;
 import domain.university.UniversityID;
+import validators.Validate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -52,9 +53,7 @@ public class Student {
     }
 
     public void enrollInto(Course course) {
-        if (course == null) {
-            throw new IllegalArgumentException("Provided course can not be null");
-        }
+        Validate.argumentNotNull(course, "Provided course can not be null");
 
         this.enrolledCourses.add(course.id());
     }
