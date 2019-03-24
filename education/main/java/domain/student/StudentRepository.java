@@ -1,5 +1,8 @@
 package domain.student;
 
+import domain.university.UniversityID;
+
+import java.util.Collection;
 import java.util.Optional;
 
 public interface StudentRepository {
@@ -10,5 +13,5 @@ public interface StudentRepository {
 
     Optional<Student> studentOfID(StudentID studentID);
 
-    // maybe add Collection<Student> studentsOfUniversity(UniversityID universityID)
+    Collection<Student> studentsOfUniversity(UniversityID universityID);
 }
