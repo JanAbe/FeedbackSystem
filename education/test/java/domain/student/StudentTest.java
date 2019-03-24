@@ -13,8 +13,7 @@ import java.util.UUID;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StudentTest {
 
@@ -72,5 +71,20 @@ public class StudentTest {
 
         assertThat(student.enrolledCourses(), hasSize(1));
         assertThat(student.enrolledCourses(), contains(course.id()));
+    }
+
+    @Test
+    public void testEnrollIntoNullThrowsIAE() {
+        var studentID = new StudentID(UUID.randomUUID());
+        var email = new Email("tom@email.com");
+        var fullName = new FullName("tom", "le", "fromage");
+        var person = new Person(email, fullName);
+        var student = new Student(studentID, person);
+
+        assertThat(student.enrolledCourses(), hasSize(0));
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            student.enrollInto(null);
+        });
     }
 }
