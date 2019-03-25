@@ -26,7 +26,6 @@ public class InMemoryStudentRepository implements StudentRepository {
 
     @Override
     public Optional<Student> studentOfID(StudentID studentID) {
-        // returns Student if found, Optional.Empty if null. If a map doesn't contain key, it returns null
         return Optional.ofNullable(studentDB.get(studentID));
     }
 

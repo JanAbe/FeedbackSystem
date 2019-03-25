@@ -22,7 +22,7 @@ public interface StudentRepository {
     /**
      * <p>Find the student corresponding to the provided studentID.</p>
      * @param studentID StudentID
-     * @return an Optional Student.
+     * @return an Optional Student or Optional.Empty if no student found.
      */
     Optional<Student> studentOfID(StudentID studentID);
 
