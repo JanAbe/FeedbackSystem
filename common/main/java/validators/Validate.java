@@ -10,6 +10,7 @@ public final class Validate {
         }
     }
 
+    // what is the difference in this case between T argument and Object argument?
     public static <T> void argumentNotNull(T argument, String message) throws IllegalArgumentException {
         if (argument == null) {
             throw new IllegalArgumentException(message);
