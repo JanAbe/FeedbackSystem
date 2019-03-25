@@ -1,5 +1,6 @@
 package domain;
 
+import cleaners.Clean;
 import validators.Validate;
 
 public final class Email {
@@ -32,6 +33,6 @@ public final class Email {
     private void setEmailAddress(String emailAddress) {
         // checks here ...
         Validate.argumentNotNull(emailAddress, "Provided emailAddress can not be null");
-        this.emailAddress = emailAddress;
+        this.emailAddress = Clean.string(emailAddress);
     }
 }

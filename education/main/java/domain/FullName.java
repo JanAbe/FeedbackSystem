@@ -1,5 +1,6 @@
 package domain;
 
+import cleaners.Clean;
 import validators.Validate;
 
 public final class FullName {
@@ -51,18 +52,18 @@ public final class FullName {
     private void setFirstName(String firstName) {
         // checks here ...
         Validate.argumentNotNull(firstName, "Provided firstName can not be null");
-        this.firstName = firstName;
+        this.firstName = Clean.string(firstName);
     }
 
     private void setPrefix(String prefix) {
         // checks here ...
         Validate.argumentNotNull(prefix, "Provided prefix can not be null");
-        this.prefix = prefix;
+        this.prefix = Clean.string(prefix);
     }
 
     private void setLastName(String lastName) {
         // checks here ...
         Validate.argumentNotNull(lastName, "Provided lastName can not be null");
-        this.lastName = lastName;
+        this.lastName = Clean.string(lastName);
     }
 }
