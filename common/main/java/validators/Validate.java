@@ -4,15 +4,28 @@ public final class Validate {
 
     private Validate() {}
 
-    public static <T> void notNull(T object, String message) throws NullPointerException {
+    /**
+     * <p>Validate that the given object is not null.
+     * Otherwise a NullPointerException is thrown with the provided message.</p>
+     * @param object Object
+     * @param message String
+     * @throws NullPointerException
+     */
+    public static void notNull(Object object, String message) throws NullPointerException {
         if (object == null) {
             throw new NullPointerException(message);
         }
     }
 
-    // what is the difference in this case between T argument and Object argument?
-    public static <T> void argumentNotNull(T argument, String message) throws IllegalArgumentException {
-        if (argument == null) {
+    /**
+     * <p>Validate that the given argument is not null.
+     * Otherwise an IllegalArgumenException is thrown with the provided message.</p>
+     * @param object Object
+     * @param message String
+     * @throws IllegalArgumentException
+     */
+    public static void argumentNotNull(Object object, String message) throws IllegalArgumentException {
+        if (object == null) {
             throw new IllegalArgumentException(message);
         }
     }
