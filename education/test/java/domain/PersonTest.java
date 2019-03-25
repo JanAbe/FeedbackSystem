@@ -19,21 +19,17 @@ public class PersonTest {
 
     @Test
     public void testEquality() {
-        var email1 = new Email("tom@email.com");
-        var fullName1 = new FullName("tom", "el", "bois");
-        var person1 = new Person(email1, fullName1);
+        var person1 = new Person(new Email("tom@email.com"),
+                                 new FullName("tom", "el", "bois"));
 
-        var email2 = new Email("bob@email.com");
-        var fullName2 = new FullName("bob", "capitan");
-        var person2 = new Person(email2, fullName2);
+        var person2 = new Person(new Email("bob@email.com"),
+                                 new FullName("bob", "capitan"));
 
-        var email3 = new Email("tom@email.com");
-        var fullName3 = new FullName("tom", "el", "bois");
-        var person3 = new Person(email3, fullName3);
+        var person3 = new Person(new Email("tom@email.com"),
+                                 new FullName("tom", "el", "bois"));
 
-        var email4 = new Email("tom@EMAIL.com  ");
-        var fullName4 = new FullName("toM", "el", "bOIs");
-        var person4 = new Person(email4, fullName4);
+        var person4 = new Person(new Email("tom@EMAIL.com  "),
+                                 new FullName("toM", "el", "bOIs"));
 
         assertNotEquals(person1, person2);
         assertEquals(person1, person3);
