@@ -31,8 +31,13 @@ public class PersonTest {
         var fullName3 = new FullName("tom", "el", "bois");
         var person3 = new Person(email3, fullName3);
 
+        var email4 = new Email("tom@EMAIL.com  ");
+        var fullName4 = new FullName("toM", "el", "bOIs");
+        var person4 = new Person(email4, fullName4);
+
         assertNotEquals(person1, person2);
         assertEquals(person1, person3);
+        assertEquals(person1, person4);
     }
 
     @Test
