@@ -1,5 +1,7 @@
 package domain;
 
+import validators.Validate;
+
 public final class Person {
     private Email email;
     private FullName fullName;
@@ -36,11 +38,13 @@ public final class Person {
 
     private void setEmail(Email email) {
         // checks here ...
+        Validate.argumentNotNull(email, "Provided email can not be null");
         this.email = email;
     }
 
     private void setFullName(FullName fullName) {
         // checks here ...
+        Validate.argumentNotNull(fullName, "Provided fullname can not be null");
         this.fullName = fullName;
     }
 

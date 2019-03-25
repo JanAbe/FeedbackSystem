@@ -1,5 +1,7 @@
 package domain;
 
+import validators.Validate;
+
 public final class Email {
     private String emailAddress;
 
@@ -29,6 +31,7 @@ public final class Email {
 
     private void setEmailAddress(String emailAddress) {
         // checks here ...
+        Validate.argumentNotNull(emailAddress, "Provided emailAddress can not be null");
         this.emailAddress = emailAddress;
     }
 }

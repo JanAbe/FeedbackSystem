@@ -54,7 +54,6 @@ public class Student {
 
     public void enrollInto(Course course) {
         Validate.argumentNotNull(course, "Provided course can not be null");
-
         this.enrolledCourses.add(course.id());
     }
 
