@@ -1,5 +1,7 @@
 package domain;
 
+import util.validators.Validate;
+
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
@@ -49,18 +51,13 @@ public final class Period {
 
     private void setStartDate(LocalDateTime startDate) {
         // checks here ...
-        if (startDate.isBefore(LocalDateTime.now())) {
-            throw new IllegalArgumentException("Provided startDate can not occur before currentDate");
-        }
+        Validate.notBefore(startDate, LocalDateTime.now(), "Provided startDate can not occur before currentDate");
         this.startDate = startDate;
     }
 
     private void setEndDate(LocalDateTime endDate) {
         // checks here ...
-        if (this.startDate().isBefore(endDate)) {
-            throw new IllegalArgumentException("Provided endDate can not occur before startDate");
-        }
-
+        Validate.notBefore(endDate, this.startDate(), "Provided endDate can not occur before startDate");
         this.endDate = endDate;
     }
 
