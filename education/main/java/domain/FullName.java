@@ -1,7 +1,7 @@
 package domain;
 
-import cleaners.Clean;
-import validators.Validate;
+import util.cleaners.Clean;
+import util.validators.Validate;
 
 public final class FullName {
     private String firstName;

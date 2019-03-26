@@ -6,7 +6,7 @@ import domain.Person;
 import domain.course.Course;
 import domain.course.CourseID;
 import domain.university.UniversityID;
-import validators.Validate;
+import util.validators.Validate;
 
 import java.util.HashSet;
 import java.util.Set;
