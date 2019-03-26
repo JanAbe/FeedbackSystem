@@ -1,4 +1,4 @@
-package cleaners;
+package util.cleaners;
 
 public class Clean {
 

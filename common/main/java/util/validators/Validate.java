@@ -1,4 +1,8 @@
-package validators;
+package util.validators;
+
+import util.exceptions.IllegalDateException;
+
+import java.time.LocalDateTime;
 
 public final class Validate {
 
@@ -27,6 +31,24 @@ public final class Validate {
     public static void argumentNotNull(Object object, String message) throws IllegalArgumentException {
         if (object == null) {
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * <p>Validate that the given firstDate does not occur before the given secondDate.
+     * If it does occur before the secondDate, an IllegalDateException is thrown with
+     * the provided message</p>
+     * @param firstDate LocalDateTime
+     * @param secondDate LocalDateTime
+     * @param message String
+     * @throws IllegalDateException
+     */
+    public static void notBefore(LocalDateTime firstDate,
+                                 LocalDateTime secondDate,
+                                 String message) throws IllegalDateException {
+
+        if (firstDate.isBefore(secondDate)) {
+            throw new IllegalDateException(message);
         }
     }
 }
