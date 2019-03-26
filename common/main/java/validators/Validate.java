@@ -6,7 +6,7 @@ public final class Validate {
 
     /**
      * <p>Validate that the given object is not null.
-     * Otherwise a NullPointerException is thrown with the provided message.</p>
+     * If it is null a NullPointerException is thrown with the provided message.</p>
      * @param object Object
      * @param message String
      * @throws NullPointerException
@@ -19,7 +19,7 @@ public final class Validate {
 
     /**
      * <p>Validate that the given argument is not null.
-     * Otherwise an IllegalArgumenException is thrown with the provided message.</p>
+     * If it is null an IllegalArgumentException is thrown with the provided message.</p>
      * @param object Object
      * @param message String
      * @throws IllegalArgumentException

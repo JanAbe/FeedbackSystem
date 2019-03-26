@@ -25,7 +25,6 @@ public class Course {
         this.setTeachingMoments(teachingMoments);
     }
 
-
     // ---------- Public methods -----------
 
     public CourseID id() {
