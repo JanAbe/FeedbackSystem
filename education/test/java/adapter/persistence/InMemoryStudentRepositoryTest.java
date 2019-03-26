@@ -22,6 +22,14 @@ public class InMemoryStudentRepositoryTest {
     private StudentRepository studentRepository;
 
     @Test
+    public void testNextID() {
+        this.studentRepository = new InMemoryStudentRepository();
+        var studentID = studentRepository.nextID();
+
+        assertNotNull(studentID);
+    }
+
+    @Test
     public void testSaveAndFindAStudent() {
         this.studentRepository = new InMemoryStudentRepository();
 
