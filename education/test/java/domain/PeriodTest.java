@@ -23,6 +23,17 @@ public class PeriodTest {
     }
 
     @Test
+    public void testSetStartDateThrowsIAE() {
+        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        var endDate = LocalDateTime.parse("15-02-2019 15:46:01", formatter);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            // the constructor of Period uses the setStartDate() method
+            new Period(null, endDate, TimeZone.getDefault());
+        });
+    }
+
+    @Test
     public void testSetStartDateThrowsIDE() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         var startDate = LocalDateTime.parse("12-01-2014 12:30:32", formatter);
@@ -31,6 +42,17 @@ public class PeriodTest {
         assertThrows(IllegalDateException.class, () -> {
             // the constructor of Period uses the setStartDate() method
             new Period(startDate, endDate, TimeZone.getDefault());
+        });
+    }
+
+    @Test
+    public void testSetEndDateThrowsIAE() {
+        var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        var startDate = LocalDateTime.parse("15-05-2019 15:46:01", formatter);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            // the constructor of Period uses the setEndDate() method
+            new Period(startDate, null, TimeZone.getDefault());
         });
     }
 
