@@ -1,7 +1,9 @@
 package domain.course;
 
 import domain.Period;
+import util.validators.Validate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
@@ -14,6 +16,7 @@ public class Course {
         this.setID(id);
         this.setName(name);
         this.setCode(code);
+        this.teachingMoments = new ArrayList<>();
     }
 
     public Course(CourseID id, String name,
@@ -45,6 +48,7 @@ public class Course {
 
     public void addTeachingMoment(Period teachingMoment) {
         // checks here ...
+        Validate.argumentNotNull(teachingMoment, "Provided teachingMoment can not be null");
         this.teachingMoments.add(teachingMoment);
     }
 
@@ -52,21 +56,25 @@ public class Course {
 
     private void setID(CourseID id) {
         // checks here ...
+        Validate.argumentNotNull(id, "Provided courseID can not be null");
         this.id = id;
     }
 
     private void setName(String name) {
         // checks here ...
+        Validate.argumentNotNull(name, "Provided name can not be null");
         this.name = name;
     }
 
     private void setCode(CourseCode code) {
         // checks here ...
+        Validate.argumentNotNull(code, "Provided courseCode can not be null");
         this.code = code;
     }
 
     private void setTeachingMoments(List<Period> teachingMoments) {
         // checks here ...
+        Validate.argumentNotNull(teachingMoments, "Provided teachingMoments can not be null");
         this.teachingMoments = teachingMoments;
     }
 }
