@@ -22,6 +22,7 @@ public class Course {
     public Course(CourseID id, String name,
                   CourseCode code,
                   List<Period> teachingMoments) {
+
         this.setID(id);
         this.setName(name);
         this.setCode(code);
