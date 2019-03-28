@@ -67,14 +67,14 @@ public class StudentTest {
         var courseCode = new CourseCode("ASD-19");
         var course = new Course(courseID, "Advanced Software Design", courseCode);
 
-        student.enrollInto(course);
+        student.enrollIntoCourse(course);
 
         assertThat(student.enrolledCourses(), hasSize(1));
         assertThat(student.enrolledCourses(), contains(course.id()));
     }
 
     @Test
-    public void testEnrollIntoNullThrowsIAE() {
+    public void testEnrollIntoCourseNullThrowsIAE() {
         var studentID = new StudentID(UUID.randomUUID());
         var email = new Email("tom@email.com");
         var fullName = new FullName("tom", "le", "fromage");
@@ -84,7 +84,7 @@ public class StudentTest {
         assertThat(student.enrolledCourses(), hasSize(0));
 
         assertThrows(IllegalArgumentException.class, () -> {
-            student.enrollInto(null);
+            student.enrollIntoCourse(null);
         });
     }
 }

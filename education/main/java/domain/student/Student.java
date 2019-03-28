@@ -21,6 +21,7 @@ public class Student {
         this.setID(id);
         this.setPerson(person);
         this.enrolledCourses = new HashSet<>();
+        this.universityID = null;
     }
 
     public Student(StudentID id, Person person, UniversityID universityID) {
@@ -52,29 +53,46 @@ public class Student {
         return this.enrolledCourses;
     }
 
-    public void enrollInto(Course course) {
+    public void enrollIntoCourse(Course course) {
         Validate.argumentNotNull(course, "Provided course can not be null");
         this.enrolledCourses.add(course.id());
+    }
+
+    public void enrollIntoUniversity(UniversityID universityID) {
+        this.setUniversityID(universityID);
     }
 
     public void changeEmail(Email newEmail) {
         this.setPerson(new Person(newEmail, this.fullName()));
     }
 
+    @Override
+    public String toString() {
+        var stringBuilder = new StringBuilder();
+        return stringBuilder.append("Student Info: ")
+                .append(this.id().id()).append(" | ")
+                .append(this.email().emailAddress()).append(" | ")
+                .append(this.fullName().firstName()).append(" ")
+                .append(this.fullName().prefix()).append(" ")
+                .append(this.fullName().lastName()).toString();
+
+    }
+
     // ---------- Private methods ----------
     private void setID(StudentID id) {
-        // checks here ...
+        Validate.argumentNotNull(id, "Provided studentID can not be null");
         this.id = id;
     }
 
     private void setPerson(Person person) {
         // checks here ...
+        Validate.argumentNotNull(person, "Provided person can not be null");
         this.person = person;
     }
 
-    // or change name to setUniversityID(), hmmm
     private void setUniversityID(UniversityID id) {
         // checks here ...
+        Validate.argumentNotNull(id, "Provided universityID can not be null");
         this.universityID = id;
     }
 }
