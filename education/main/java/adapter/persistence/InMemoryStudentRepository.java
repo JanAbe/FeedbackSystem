@@ -8,7 +8,7 @@ import domain.university.UniversityID;
 import java.util.*;
 
 public class InMemoryStudentRepository implements StudentRepository {
-    private Map<StudentID, Student> studentDB;
+    private Map<String, Student> studentDB;
 
     public InMemoryStudentRepository() {
         this.studentDB = new HashMap<>();
@@ -21,12 +21,12 @@ public class InMemoryStudentRepository implements StudentRepository {
 
     @Override
     public void save(Student student) {
-        studentDB.put(student.id(), student);
+        studentDB.put(student.id().id(), student);
     }
 
     @Override
     public Optional<Student> studentOfID(StudentID studentID) {
-        return Optional.ofNullable(studentDB.get(studentID));
+        return Optional.ofNullable(studentDB.get(studentID.id()));
     }
 
     @Override
