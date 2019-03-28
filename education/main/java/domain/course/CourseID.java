@@ -1,5 +1,7 @@
 package domain.course;
 
+import util.validators.Validate;
+
 import java.util.UUID;
 
 public final class CourseID {
@@ -30,11 +32,7 @@ public final class CourseID {
     // ---------- Private methods ----------
 
     private void setID(UUID id) {
-        // checks here ...
-        if (id == null) {
-            throw new IllegalArgumentException("Provided id can not be null");
-        }
-
+        Validate.argumentNotNull(id, "Provided id can not be null");
         this.id = id.toString();
     }
 }

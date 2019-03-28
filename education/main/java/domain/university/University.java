@@ -1,5 +1,7 @@
 package domain.university;
 
+import util.validators.Validate;
+
 public class University {
     private UniversityID id;
     private String name;
@@ -29,16 +31,19 @@ public class University {
 
     private void setID(UniversityID id) {
         // checks here ...
+        Validate.argumentNotNull(id, "Provided universityID can not be null");
         this.id = id;
     }
 
     private void setName(String name) {
         // checks here ...
+        Validate.argumentNotNull(name, "Provided name can not be null");
         this.name = name;
     }
 
     private void setCountry(Country country) {
         // checks here ...
+        Validate.argumentNotNull(country, "Provided name can not be null");
         this.country = country;
     }
 }
