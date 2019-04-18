@@ -8,8 +8,8 @@ import java.util.Optional;
 public interface StudentRepository {
 
     /**
-     * <p>Get a new StudentID, which can be used to identify a student.</p>
-     * @return
+     * <p>Generate a new StudentID, which can be used to identify a student.</p>
+     * @return StudentID
      */
     StudentID nextID();
 
