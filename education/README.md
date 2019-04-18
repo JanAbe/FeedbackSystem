@@ -1,3 +1,3 @@
-##The Education Bounded Context
+## The Education Bounded Context
 
 Contains classes related to the education subdomain.
