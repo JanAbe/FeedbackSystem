@@ -3,6 +3,7 @@ package util.validators;
 import util.exceptions.IllegalDateException;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 public final class Validate {
 
@@ -49,6 +50,30 @@ public final class Validate {
 
         if (firstDate.isBefore(secondDate)) {
             throw new IllegalDateException(message);
+        }
+    }
+
+    /**
+     * <p>Validate that the given text is not blank.
+     * If it is blank, an IllegalArgumentException is thrown with the provided message.</p>
+     * @param text String
+     * @param message String
+     */
+    public static void notBlank(String text, String message) {
+        if (text.isBlank()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * <p>Validate that the given collection is not empty.
+     * If it is empty, an IllegalArgumentException is thrown with the provided message.</p>
+     * @param collection Collection
+     * @param message String
+     */
+    public static void notEmpty(Collection collection, String message) {
+        if (collection.isEmpty()) {
+            throw new IllegalArgumentException(message);
         }
     }
 }
