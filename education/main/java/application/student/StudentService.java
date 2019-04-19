@@ -6,10 +6,8 @@ import domain.Person;
 import domain.student.Student;
 import domain.student.StudentID;
 import domain.student.StudentRepository;
-import domain.university.University;
 import domain.university.UniversityID;
 import domain.university.UniversityRepository;
-import util.exceptions.EmptyOptionalException;
 import util.validators.Validate;
 
 import java.util.Optional;
@@ -31,6 +29,11 @@ public class StudentService {
 
     // ---------- Public methods ----------
 
+    /**
+     * <p>Request the student that belongs to the provided studentID.</p>
+     * @param id String
+     * @return Optional Student
+     */
     public Optional<Student> requestStudent(String id) {
         Optional<Student> student = Optional.empty();
 
@@ -44,22 +47,34 @@ public class StudentService {
         return student;
     }
 
-    public void addStudent(String sID,
+    /**
+     * <p>Add a student to the system.</p>
+     * @param sID String
+     * @param email String
+     * @param firstName String
+     * @param prefix String
+     * @param lastName String
+     */
+    public Student addStudent(String sID,
                            String email,
                            String firstName,
                            String prefix,
                            String lastName) {
+
+        Student student = null;
         try {
             var studentID = new StudentID(UUID.fromString(sID));
-            var student = new Student(studentID,
+            student = new Student(studentID,
                             new Person(
                                 new Email(email),
                                 new FullName(firstName, prefix, lastName)
                             ));
-            this.studentRepository.save(student);
+            this.studentRepository.save(student); // or do i need to set student after it has been saved, for when an error occurs while saving? Otherwise you might think it has been updated but it hasn't.
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Exception occurred while requesting a student: ", e);
         }
+
+        return student;
     }
 
     /**
@@ -68,7 +83,8 @@ public class StudentService {
      * @param uID String
      * @param sID String
      */
-    public void enrollIntoUniversity(String sID, String uID) {
+    public Student enrollIntoUniversity(String sID, String uID) {
+        Student updatedStudent = null;
         try {
             var universityID = new UniversityID(UUID.fromString(uID));
             var university = this.universityRepository.universityOfID(universityID);
@@ -78,12 +94,14 @@ public class StudentService {
             var student = this.studentRepository.studentOfID(studentID);
             Validate.notEmpty(student, "Student that belongs to the provided studentID does not exist");
 
-            var updatedStudent = student.get();
+            updatedStudent = student.get();
             updatedStudent.enrollIntoUniversity(universityID);
-            this.studentRepository.save(updatedStudent);
-        } catch (Exception e) {
+            this.studentRepository.save(updatedStudent); // or do i need to set updatedStudent after it has been saved, for when an error occurs while saving? Otherwise you might think it has been updated but it hasn't.
+        } catch (Exception e) { // or should the try/catch blocks be placed not here, but in the resource classes like studentResource?
             LOGGER.log(Level.SEVERE, "Exception occurred while enrolling a student into university: ", e);
         }
+
+        return updatedStudent;
     }
 
     // ---------- Private methods ----------
