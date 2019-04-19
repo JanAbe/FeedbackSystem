@@ -1,9 +1,13 @@
 package util.validators;
 
+import domain.university.University;
+import util.exceptions.EmptyOptionalException;
 import util.exceptions.IllegalDateException;
 
+import java.io.OptionalDataException;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Optional;
 
 public final class Validate {
 
@@ -74,6 +78,12 @@ public final class Validate {
     public static void notEmpty(Collection collection, String message) {
         if (collection.isEmpty()) {
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static <T> void notEmpty(Optional<T> optional, String message) {
+        if (optional.isEmpty()) {
+            throw new EmptyOptionalException(message);
         }
     }
 }
