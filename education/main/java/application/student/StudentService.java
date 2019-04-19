@@ -72,11 +72,11 @@ public class StudentService {
         try {
             var universityID = new UniversityID(UUID.fromString(uID));
             var university = this.universityRepository.universityOfID(universityID);
-            Validate.notEmpty(university, "Provided universityID does not exist");
+            Validate.notEmpty(university, "University that belongs to the provided universityID does not exist");
 
             var studentID = new StudentID(UUID.fromString(sID));
             var student = this.studentRepository.studentOfID(studentID);
-            Validate.notEmpty(student, "Provided studentID does not exist");
+            Validate.notEmpty(student, "Student that belongs to the provided studentID does not exist");
 
             var updatedStudent = student.get();
             updatedStudent.enrollIntoUniversity(universityID);

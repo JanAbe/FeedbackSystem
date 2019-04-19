@@ -8,6 +8,7 @@ import domain.university.Country;
 import domain.university.University;
 import domain.university.UniversityID;
 import org.junit.jupiter.api.Test;
+import util.exceptions.EmptyOptionalException;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -23,9 +24,12 @@ public class StudentServiceTest {
         var universityRepository = new InMemoryUniversityRepository();
         var studentService = new StudentService(studentRepository, universityRepository);
         var student = studentRepository.studentOfID(new StudentID(UUID.fromString(studentIDString)));
+
         assertSame(student, Optional.empty());
+
         studentService.addStudent(studentIDString, "tom@email.com", "tom", "el", "bois");
         var student1 = studentRepository.studentOfID(new StudentID(UUID.fromString(studentIDString)));
+
         assertNotNull(student1.get());
     }
 
@@ -35,6 +39,7 @@ public class StudentServiceTest {
         var studentRepository = new InMemoryStudentRepository();
         var universityRepository = new InMemoryUniversityRepository();
         var studentService = new StudentService(studentRepository, universityRepository);
+
         studentService.addStudent(studentIDString, "tom@email.com", "tom", "el", "bois");
         var student = studentService.requestStudent(studentIDString);
 
@@ -48,8 +53,8 @@ public class StudentServiceTest {
         var studentRepository = new InMemoryStudentRepository();
         var universityRepository = new InMemoryUniversityRepository();
         var studentService = new StudentService(studentRepository, universityRepository);
-        studentService.addStudent(studentIDString, "tom@email.com", "tom", "el", "bois");
 
+        studentService.addStudent(studentIDString, "tom@email.com", "tom", "el", "bois");
         universityRepository.save(new University(new UniversityID(UUID.fromString(universityIDString)), "Hogeschool Utrecht", Country.THE_NETHERLANDS));
 
         studentService.enrollIntoUniversity(studentIDString, universityIDString);
@@ -60,4 +65,21 @@ public class StudentServiceTest {
         assertEquals(student.get().universityID(), university.get().id());
     }
 
+//     TODO: write tests that check if the enrollStudentIntoUniversity() method raises an error if the ids don't exist
+//     Why does the following test not work? am i dumb?
+//    @Test
+//    public void testEnrollStudentIntoUniversityThrowsEOE() {
+//        var studentIDString = UUID.randomUUID().toString();
+//        var universityIDString = UUID.randomUUID().toString();
+//        var studentRepository = new InMemoryStudentRepository();
+//        var universityRepository = new InMemoryUniversityRepository();
+//        var studentService = new StudentService(studentRepository, universityRepository);
+//
+//        studentService.addStudent(studentIDString, "tom@email.com", "tom", "el", "bois");
+//        // universityRepository.save(new University(new UniversityID(UUID.fromString(universityIDString)), "Hogeschool Utrecht", Country.THE_NETHERLANDS));
+//
+//        assertThrows(EmptyOptionalException.class, () -> {
+//            studentService.enrollIntoUniversity(studentIDString, universityIDString);
+//        });
+//    }
 }
