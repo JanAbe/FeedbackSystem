@@ -1,10 +1,10 @@
 package util.validators;
 
-import domain.university.University;
 import util.exceptions.EmptyOptionalException;
 import util.exceptions.IllegalDateException;
 
-import java.io.OptionalDataException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Optional;
@@ -63,7 +63,7 @@ public final class Validate {
      * @param text String
      * @param message String
      */
-    public static void notBlank(String text, String message) {
+    public static void notBlank(String text, String message) throws IllegalArgumentException {
         if (text.isBlank()) {
             throw new IllegalArgumentException(message);
         }
@@ -75,15 +75,28 @@ public final class Validate {
      * @param collection Collection
      * @param message String
      */
-    public static void notEmpty(Collection collection, String message) {
+    public static void notEmpty(Collection collection, String message) throws IllegalArgumentException {
         if (collection.isEmpty()) {
             throw new IllegalArgumentException(message);
         }
     }
 
-    public static <T> void notEmpty(Optional<T> optional, String message) {
+    public static <T> void notEmpty(Optional<T> optional, String message) throws EmptyOptionalException {
         if (optional.isEmpty()) {
             throw new EmptyOptionalException(message);
         }
     }
+
+    public static <T> void resourceNotAbsent(Optional<T> resource) throws WebApplicationException {
+        if (resource.isEmpty()) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+    }
+
+    public static void resourceNotAbsent(Collection resources) throws WebApplicationException {
+        if (resources.isEmpty()) {
+            throw new WebApplicationException(Response.Status.NOT_FOUND);
+        }
+    }
+
 }
