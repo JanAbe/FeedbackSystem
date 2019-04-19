@@ -31,7 +31,7 @@ public class InMemoryStudentRepository implements StudentRepository {
 
     @Override
     public Collection<Student> studentsOfUniversity(UniversityID universityID) {
-        // do i need to check here if universityID is null?
+        // do i need to check here if universityID is null, or has it already been checked?
         var foundStudents = new HashSet<Student>();
 
         for (Student student : this.studentDB.values()) {
