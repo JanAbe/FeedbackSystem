@@ -6,7 +6,10 @@ import domain.Person;
 import domain.student.Student;
 import domain.student.StudentID;
 import domain.student.StudentRepository;
+import domain.university.University;
 import domain.university.UniversityID;
+import domain.university.UniversityRepository;
+import util.exceptions.EmptyOptionalException;
 import util.validators.Validate;
 
 import java.util.Optional;
@@ -16,10 +19,14 @@ import java.util.logging.Logger;
 
 public class StudentService {
     private StudentRepository studentRepository;
+    private UniversityRepository universityRepository;
     private final static Logger LOGGER = Logger.getLogger(StudentService.class.getName());
 
-    public StudentService(StudentRepository studentRepository) {
+    public StudentService(StudentRepository studentRepository,
+                          UniversityRepository universityRepository) {
+
         this.setStudentRepository(studentRepository);
+        this.setUniversityRepository(universityRepository);
     }
 
     // ---------- Public methods ----------
@@ -37,8 +44,11 @@ public class StudentService {
         return student;
     }
 
-    public void addStudent(String sID, String email,
-                           String firstName, String prefix, String lastName) {
+    public void addStudent(String sID,
+                           String email,
+                           String firstName,
+                           String prefix,
+                           String lastName) {
         try {
             var studentID = new StudentID(UUID.fromString(sID));
             var student = new Student(studentID,
@@ -52,13 +62,25 @@ public class StudentService {
         }
     }
 
-    public void enrollIntoUniversity(String uID, String sID) {
-        // prolly should be a check to see if universityID exists?
+    /**
+     * <p>Enroll the student that corresponds to the studentID in
+     * the university that corresponds to the universityID.</p>
+     * @param uID String
+     * @param sID String
+     */
+    public void enrollIntoUniversity(String sID, String uID) {
         try {
             var universityID = new UniversityID(UUID.fromString(uID));
+            var university = this.universityRepository.universityOfID(universityID);
+            Validate.notEmpty(university, "Provided universityID does not exist");
+
             var studentID = new StudentID(UUID.fromString(sID));
-            var foundStudent = this.studentRepository.studentOfID(studentID);
-            foundStudent.ifPresent(student -> student.enrollIntoUniversity(universityID));
+            var student = this.studentRepository.studentOfID(studentID);
+            Validate.notEmpty(student, "Provided studentID does not exist");
+
+            var updatedStudent = student.get();
+            updatedStudent.enrollIntoUniversity(universityID);
+            this.studentRepository.save(updatedStudent);
         } catch (Exception e) {
             LOGGER.log(Level.SEVERE, "Exception occurred while enrolling a student into university: ", e);
         }
@@ -67,8 +89,12 @@ public class StudentService {
     // ---------- Private methods ----------
 
     private void setStudentRepository(StudentRepository studentRepository) {
-        Validate.argumentNotNull(studentRepository,
-                "Provided studentRepository can not be null");
+        Validate.argumentNotNull(studentRepository, "Provided studentRepository can not be null");
         this.studentRepository = studentRepository;
+    }
+
+    private void setUniversityRepository(UniversityRepository universityRepository) {
+        Validate.argumentNotNull(universityRepository, "Provided universityRepository can not be null");
+        this.universityRepository = universityRepository;
     }
 }
