@@ -94,7 +94,7 @@ public final class Validate {
     }
 
     public static void resourceNotAbsent(Collection resources) throws WebApplicationException {
-        if (resources.isEmpty()) {
+        if (resources == null || resources.isEmpty()) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
     }

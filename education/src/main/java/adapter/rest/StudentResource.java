@@ -33,8 +33,20 @@ public class StudentResource {
         Validate.resourceNotAbsent(student);
 
         return Response.status(Response.Status.OK)
-                       .entity(student.get())
-                       .build();
+                .entity(student.get())
+                .build();
+    }
+
+    @GET
+    @Path("/university/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response requestStudentsOfUniversity(@PathParam("id") String universityID) {
+        var students = this.studentService.requestStudentsOfUniversity(universityID);
+        Validate.resourceNotAbsent(students);
+
+        return Response.status(Response.Status.OK)
+                .entity(students)
+                .build();
     }
 
     @POST
@@ -49,8 +61,8 @@ public class StudentResource {
         Validate.notNull(createdStudent, "Created student is null");
 
         return Response.status(Response.Status.CREATED)
-                       .entity(createdStudent)
-                       .build();
+                .entity(createdStudent)
+                .build();
     }
 
     @PATCH

@@ -10,6 +10,7 @@ import domain.university.UniversityID;
 import domain.university.UniversityRepository;
 import util.validators.Validate;
 
+import java.util.Collection;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -102,6 +103,21 @@ public class StudentService {
         }
 
         return updatedStudent;
+    }
+
+    public Collection<Student> requestStudentsOfUniversity(String uID) {
+        Collection<Student> students = null;
+        try {
+            var universityID = new UniversityID(UUID.fromString(uID));
+            var university = this.universityRepository.universityOfID(universityID);
+            Validate.notEmpty(university, "University that belongs to the provided universityID does not exist");
+
+            students = this.studentRepository.studentsOfUniversity(universityID);
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Exception occurred while requesting (all) students from a university: ", e);
+        }
+
+        return students;
     }
 
     // ---------- Private methods ----------
