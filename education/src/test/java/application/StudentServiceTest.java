@@ -8,7 +8,6 @@ import domain.university.Country;
 import domain.university.University;
 import domain.university.UniversityID;
 import org.junit.jupiter.api.Test;
-import util.exceptions.EmptyOptionalException;
 
 import java.util.Optional;
 import java.util.UUID;

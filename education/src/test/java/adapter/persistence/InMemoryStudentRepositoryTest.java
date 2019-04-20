@@ -6,8 +6,6 @@ import domain.Person;
 import domain.student.Student;
 import domain.student.StudentID;
 import domain.student.StudentRepository;
-import domain.university.Country;
-import domain.university.University;
 import domain.university.UniversityID;
 import org.junit.jupiter.api.Test;
 

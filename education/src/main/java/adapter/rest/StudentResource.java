@@ -1,7 +1,6 @@
 package adapter.rest;
 
 import application.student.StudentService;
-import domain.student.Student;
 import domain.student.StudentRepository;
 import domain.university.UniversityRepository;
 import util.validators.Validate;
