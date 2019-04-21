@@ -37,6 +37,8 @@ public class StudentResource {
                 .build();
     }
 
+    // TODO: add start and size query parameters so the
+    //  client can specify the amount of students he/she wants
     @GET
     @Path("/university/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,13 +53,12 @@ public class StudentResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudent(String studentID,
-                               String email,
+    public Response addStudent(String email,
                                String firstName,
                                String prefix,
                                String lastName) {
 
-        var createdStudent = this.studentService.addStudent(studentID, email, firstName, prefix, lastName);
+        var createdStudent = this.studentService.addStudent(email, firstName, prefix, lastName);
         Validate.notNull(createdStudent, "Created student is null");
 
         return Response.status(Response.Status.CREATED)

@@ -50,21 +50,19 @@ public class StudentService {
 
     /**
      * <p>Add a student to the system.</p>
-     * @param sID String
      * @param email String
      * @param firstName String
      * @param prefix String
      * @param lastName String
      */
-    public Student addStudent(String sID,
-                           String email,
-                           String firstName,
-                           String prefix,
-                           String lastName) {
+    public Student addStudent(String email,
+                              String firstName,
+                              String prefix,
+                              String lastName) {
 
         Student student = null;
         try {
-            var studentID = new StudentID(UUID.fromString(sID));
+            var studentID = this.studentRepository.nextID();
             student = new Student(studentID,
                             new Person(
                                 new Email(email),
@@ -72,7 +70,7 @@ public class StudentService {
                             ));
             this.studentRepository.save(student); // or do i need to set student after it has been saved, for when an error occurs while saving? Otherwise you might think it has been updated but it hasn't.
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Exception occurred while requesting a student: ", e);
+            LOGGER.log(Level.SEVERE, "Exception occurred while adding a student: ", e);
         }
 
         return student;
@@ -108,7 +106,7 @@ public class StudentService {
     public Collection<Student> requestStudentsOfUniversity(String uID) {
         Collection<Student> students = null;
         try {
-            var universityID = new UniversityID(UUID.fromString(uID));
+            var universityID = new UniversityID(UUID.fromString(uID)); // Code duplication: see code in enrollIntoUniversity() method -> needs to be a separate method, but where place it?
             var university = this.universityRepository.universityOfID(universityID);
             Validate.notEmpty(university, "University that belongs to the provided universityID does not exist");
 

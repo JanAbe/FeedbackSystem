@@ -4,6 +4,7 @@ import domain.instructor.Instructor;
 import domain.student.Student;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface FeedbackSessionRepository {
 
@@ -14,17 +15,24 @@ public interface FeedbackSessionRepository {
     FeedbackSessionID nextID();
 
     /**
-     * <p>Save the provided feedbacksession</p>
+     * <p>Save the provided feedbacksession.</p>
      * @param feedbackSession FeedbackSession
      */
     void save(FeedbackSession feedbackSession);
 
     /**
-     * <p>Find the instructor that leads the provided feedbacksession</p>
+     * <p>Find the feedbacksession corresponding to the provided feedbacksessionID.</p>
      * @param feedbackSessionID FeedbackSessionID
-     * @return Instructor
+     * @return an Optional FeedbackSession or Optional.Empty if no feedbacksession found.
      */
-    Instructor instructorOf(FeedbackSessionID feedbackSessionID);
+    Optional<FeedbackSession> feedbackSessionOfID(FeedbackSessionID feedbackSessionID);
+
+    /**
+     * <p>Find the instructor that leads the provided feedbacksessionID.</p>
+     * @param feedbackSessionID FeedbackSessionID
+     * @return an Optional Instructor or Optional.Empty if no instructor found.
+     */
+    Optional<Instructor> instructorOf(FeedbackSessionID feedbackSessionID);
 
     /**
      * <p>Find all students who are assigned to the provided feedbacksession.</p>

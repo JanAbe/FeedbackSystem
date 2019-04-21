@@ -10,15 +10,15 @@ import java.util.Set;
 public class FeedbackSession {
     private FeedbackSessionID id;
     private Set<Question> questions;
-    private InstructorID instructorID;
+    private InstructorID supervisor;
     private Set<StudentID> studentIDs;
 
     public FeedbackSession(FeedbackSessionID id,
                            Set<Question> questions,
-                           InstructorID instructorID) {
+                           InstructorID supervisor) {
         this.setID(id);
         this.setQuestions(questions);
-        this.setInstructorID(instructorID);
+        this.setInstructorID(supervisor);
     }
 
     // ---------- Public methods ----------
@@ -31,8 +31,8 @@ public class FeedbackSession {
         return this.questions;
     }
 
-    public InstructorID instructorID() {
-        return this.instructorID;
+    public InstructorID supervisor() {
+        return this.supervisor;
     }
 
     public Set<StudentID> studentIDS() {
@@ -75,8 +75,8 @@ public class FeedbackSession {
         this.questions = questions;
     }
 
-    private void setInstructorID(InstructorID instructorID) {
-        Validate.argumentNotNull(instructorID, "Provided instructorID can not be null");
-        this.instructorID = instructorID;
+    private void setInstructorID(InstructorID supervisor) {
+        Validate.argumentNotNull(supervisor, "Provided supervisor can not be null");
+        this.supervisor = supervisor;
     }
 }

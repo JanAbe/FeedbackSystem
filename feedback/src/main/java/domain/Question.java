@@ -9,7 +9,14 @@ import java.util.Set;
 public final class Question {
     private String text;
     private Set<Response> responses;
-    private InstructorID asker;
+    private Asker asker;
+    private InstructorID asker1;
+
+    public Question(String text, Asker asker) {
+        this.setQuestionText(text);
+        this.setAsker(asker);
+        this.responses = new HashSet<>();
+    }
 
     public Question(String text, InstructorID asker) {
         this.setQuestionText(text);
@@ -18,11 +25,12 @@ public final class Question {
     }
 
     // ---------- Public methods -----------
+
     public String text() {
         return this.text;
     }
 
-    public InstructorID asker() {
+    public Asker asker() {
         return this.asker;
     }
 
@@ -34,8 +42,8 @@ public final class Question {
         return !responses.isEmpty();
     }
 
-    // or is Question an entity, because you need to be able to add and change responses?
-    public void addResponse(Response response) {
+    // is this method possible if this is a value object?
+    public void answer(Response response) {
         Validate.argumentNotNull(response, "Provided response can not be null");
         this.responses.add(response);
     }
@@ -63,8 +71,13 @@ public final class Question {
         this.text = questionText;
     }
 
-    private void setAsker(InstructorID asker) {
+    private void setAsker(Asker asker) {
         Validate.argumentNotNull(asker, "Provided asker can not be null");
         this.asker = asker;
+    }
+
+    private void setAsker(InstructorID asker) {
+        Validate.argumentNotNull(asker, "Provided asker can not be null");
+        this.asker1 = asker;
     }
 }

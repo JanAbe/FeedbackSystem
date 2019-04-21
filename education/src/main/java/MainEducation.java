@@ -4,7 +4,7 @@ import adapter.rest.StudentResource;
 import domain.university.Country;
 import domain.university.University;
 
-public class Main {
+public class MainEducation {
     public static void main(String[] args) {
         var studentRepo = new InMemoryStudentRepository();
         var universityRepo = new InMemoryUniversityRepository();
@@ -29,8 +29,8 @@ public class Main {
         var lastName1 = "toy";
 
         universityRepo.save(university);
-        studentResource.addStudent(studentID.id(), email, firstName, prefix, lastName);
-        studentResource.addStudent(studentID1.id(), email1, firstName1, prefix1, lastName1);
+        studentResource.addStudent(email, firstName, prefix, lastName);
+        studentResource.addStudent(email1, firstName1, prefix1, lastName1);
 
         studentResource.enrollStudentIntoUniversity(studentID.id(), universityID.id());
         studentResource.enrollStudentIntoUniversity(studentID1.id(), universityID.id());
