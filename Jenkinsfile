@@ -6,7 +6,6 @@ pipeline {
         maven 'maven-3.5.2'
     }
 
-
     stages {
         stage('Build') {
             steps {
