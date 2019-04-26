@@ -81,18 +81,39 @@ public final class Validate {
         }
     }
 
+    /**
+     * <p>Validate that the given optional is not empty.
+     * If it is empty, an EmptyOptionalException is thrown with the provided message.</p>
+     * @param optional Optional
+     * @param message String
+     * @param <T> T
+     * @throws EmptyOptionalException
+     */
     public static <T> void notEmpty(Optional<T> optional, String message) throws EmptyOptionalException {
         if (optional.isEmpty()) {
             throw new EmptyOptionalException(message);
         }
     }
 
+    /**
+     * <p>Validate that the given resource is not empty.
+     * If it is empty, a WebApplicationException is thrown with status NOT FOUND.</p>
+     * @param resource Optional
+     * @param <T> T
+     * @throws WebApplicationException
+     */
     public static <T> void resourceNotAbsent(Optional<T> resource) throws WebApplicationException {
         if (resource.isEmpty()) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
         }
     }
 
+    /**
+     * <p>Validate that the given resources are not absent.
+     * If they are absent, a WebApplicationException is thrown with status NOT FOUND.</p>
+     * @param resources Collection
+     * @throws WebApplicationException
+     */
     public static void resourceNotAbsent(Collection resources) throws WebApplicationException {
         if (resources == null || resources.isEmpty()) {
             throw new WebApplicationException(Response.Status.NOT_FOUND);
