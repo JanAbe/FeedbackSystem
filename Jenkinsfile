@@ -6,11 +6,30 @@ pipeline {
         maven 'maven-3.5.2'
     }
 
-    stages { // Contains all stages, shown in the jenkins ui, the pipeline will go through
+
+    stages {
         stage('Build') {
-            steps { // Runs maven command to build application without running tests, bat is for windows
+            steps {
                 bat 'mvn -B -DskipTests clean package'
             }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'mvn test'
+            }
+        }
+
+        stage('Report') {
+            steps {
+                junit 'target/surefire-reports/*.xml'
+            }
+        }
+    }
+
+    post {
+        failure {
+            junit 'target/surefire-reports/*.xml'
         }
     }
 }
