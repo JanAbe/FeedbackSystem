@@ -28,7 +28,7 @@ public class EmailTest {
         var email2 = new Email("bob@email.com");
         var email3 = new Email("tom@email.com");
 
-        assertNotEquals(email1, email1);
+        assertNotEquals(email1, email2);
         assertEquals(email1, email3);
     }
 }

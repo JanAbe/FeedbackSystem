@@ -18,18 +18,11 @@ pipeline {
             steps {
                 bat 'mvn test'
             }
-        }
-
-        stage('Report') {
-            steps {
-                junit 'target/surefire-reports/*.xml'
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
             }
-        }
-    }
-
-    post {
-        failure {
-            junit 'target/surefire-reports/*.xml'
         }
     }
 }
