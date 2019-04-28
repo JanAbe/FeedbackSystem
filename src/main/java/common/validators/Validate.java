@@ -1,7 +1,7 @@
-package common.util.validators;
+package common.validators;
 
-import common.util.exceptions.EmptyOptionalException;
-import common.util.exceptions.IllegalDateException;
+import common.exceptions.EmptyOptionalException;
+import common.exceptions.IllegalDateException;
 
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;

@@ -1,6 +1,6 @@
 package feedback.domain;
 
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import java.util.UUID;
 

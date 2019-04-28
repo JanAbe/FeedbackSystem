@@ -7,7 +7,7 @@ import feedback.domain.Question;
 import education.domain.instructor.Instructor;
 import education.domain.instructor.InstructorID;
 import education.domain.student.Student;
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import java.util.Collection;
 import java.util.HashSet;

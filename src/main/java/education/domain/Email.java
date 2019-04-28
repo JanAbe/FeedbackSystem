@@ -1,7 +1,7 @@
 package education.domain;
 
-import common.util.cleaners.Clean;
-import common.util.validators.Validate;
+import common.cleaners.Clean;
+import common.validators.Validate;
 
 public final class Email {
     private String emailAddress;

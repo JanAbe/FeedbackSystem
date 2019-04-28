@@ -3,7 +3,7 @@ package education.adapter.rest;
 import education.application.student.StudentService;
 import education.domain.student.StudentRepository;
 import education.domain.university.UniversityRepository;
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

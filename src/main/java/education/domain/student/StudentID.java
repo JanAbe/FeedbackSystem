@@ -1,6 +1,6 @@
 package education.domain.student;
 
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import java.util.UUID;
 

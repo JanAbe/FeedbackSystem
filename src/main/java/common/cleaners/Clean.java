@@ -1,4 +1,4 @@
-package common.util.cleaners;
+package common.cleaners;
 
 public class Clean {
 

@@ -1,7 +1,7 @@
 package feedback.domain;
 
 import education.domain.instructor.InstructorID;
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import java.util.HashSet;
 import java.util.Set;

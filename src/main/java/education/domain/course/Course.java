@@ -1,7 +1,7 @@
 package education.domain.course;
 
 import education.domain.Period;
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -8,7 +8,7 @@ import education.domain.student.StudentID;
 import education.domain.student.StudentRepository;
 import education.domain.university.UniversityID;
 import education.domain.university.UniversityRepository;
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 import java.util.Collection;
 import java.util.Optional;

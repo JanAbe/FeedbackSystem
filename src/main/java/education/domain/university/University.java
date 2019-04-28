@@ -1,6 +1,6 @@
 package education.domain.university;
 
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 public class University {
     private UniversityID id;

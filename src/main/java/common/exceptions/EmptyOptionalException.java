@@ -1,4 +1,4 @@
-package common.util.exceptions;
+package common.exceptions;
 
 public class EmptyOptionalException extends RuntimeException {
 

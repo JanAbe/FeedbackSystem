@@ -1,7 +1,7 @@
 package education.domain;
 
 import org.junit.jupiter.api.Test;
-import common.util.exceptions.IllegalDateException;
+import common.exceptions.IllegalDateException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

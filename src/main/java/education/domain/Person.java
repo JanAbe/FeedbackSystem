@@ -1,6 +1,6 @@
 package education.domain;
 
-import common.util.validators.Validate;
+import common.validators.Validate;
 
 public final class Person {
     private Email email;
