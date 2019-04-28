@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class DatabaseConfig {
-    // maybe turn a lot / all attributes static, idk though
     private String connectionString;
     private String username;
     private String password;
@@ -36,6 +35,9 @@ public class DatabaseConfig {
 
     // ---------- Private methods ----------
 
+    /**
+     * <p>Assign values from config file to its attributes.</p>
+     */
     private void initialize() {
         try {
             JSONObject config = (JSONObject) this.readJSONConfig();
@@ -47,6 +49,11 @@ public class DatabaseConfig {
         }
     }
 
+    /**
+     * <p>Read JSON config file and return object that can be used to get the values of keys.</p>
+     * @return Object
+     * @throws Exception FileNotFoundException or ParseException
+     */
     private Object readJSONConfig() throws Exception {
         var configPath = projectPath() + this.CONFIG_FILE_NAME;
         var fileReader = new FileReader(configPath);
@@ -55,6 +62,10 @@ public class DatabaseConfig {
         return parser.parse(fileReader);
     }
 
+    /**
+     * <p>Find the absolute path of the project.</p>
+     * @return String
+     */
     private String projectPath() {
         var file = new File("").getAbsoluteFile();
         return file.getAbsolutePath();

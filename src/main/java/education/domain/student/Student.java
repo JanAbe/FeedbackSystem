@@ -10,6 +10,7 @@ import common.validators.Validate;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 public class Student {
     private StudentID id;
@@ -29,6 +30,19 @@ public class Student {
         this.setPerson(person);
         this.setUniversityID(universityID);
         this.enrolledCourses = new HashSet<>();
+    }
+
+
+    public Student(String id,
+                   String email,
+                   String firstName,
+                   String prefix,
+                   String lastName,
+                   String universityID) {
+
+        this.setID(new StudentID(UUID.fromString(id)));
+        this.setUniversityID(new UniversityID(UUID.fromString(universityID)));
+        this.setPerson(new Person(new Email(email), new FullName(firstName, prefix, lastName)));
     }
 
     // ---------- Public methods ----------

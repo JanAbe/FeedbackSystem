@@ -2,6 +2,7 @@ package education.adapter.persistence;
 
 import common.DatabaseConfig;
 import common.JDBCRepository;
+import common.Mapper;
 import education.domain.Email;
 import education.domain.FullName;
 import education.domain.Person;
@@ -36,28 +37,25 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
 
     }
 
+    // TODO: clean up this code, don't like the double try/catch blocks
     @Override
     public Optional<Student> studentOfID(StudentID studentID) {
         final var query = "SELECT * FROM Student WHERE id=?";
         Optional<Student> student = Optional.empty();
+
         try {
             PreparedStatement statement = this.connection().prepareStatement(query);
             statement.setString(1, studentID.id());
 
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                var id = resultSet.getString("id");
-                var email = resultSet.getString("email");
-                var firstName = resultSet.getString("firstname");
-                var prefix = resultSet.getString("prefix");
-                var lastName = resultSet.getString("lastname");
-                var ref_university = resultSet.getString("ref_university");
+                var mapper = new Mapper<>(Student.class, resultSet);
 
-                var person = new Person(new Email(email), new FullName(firstName, prefix, lastName));
-                var sID = new StudentID(UUID.fromString(id));
-                var uID = new UniversityID(UUID.fromString(ref_university));
-
-                student = Optional.of(new Student(sID, person, uID));
+                try {
+                    student = Optional.of(mapper.create());
+                } catch (Exception e) {
+                    LOGGER.log(Level.INFO, "Exception occurred while mapping resultSet to Student: ", e);
+                }
             }
 
             resultSet.close();
@@ -65,6 +63,7 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
         } catch (SQLException e) {
             LOGGER.log(Level.INFO, "Exception occurred while creating a statement: ", e);
         }
+
         return student;
     }
 

@@ -16,7 +16,7 @@ public abstract class JDBCRepository {
         this.connect();
     }
 
-    public Connection connection() {
+    protected Connection connection() {
         return this.connection;
     }
 
