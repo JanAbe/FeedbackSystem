@@ -8,6 +8,7 @@ import education.adapter.rest.StudentResource;
 import education.domain.student.StudentID;
 import education.domain.university.Country;
 import education.domain.university.University;
+import education.domain.university.UniversityID;
 
 import java.util.UUID;
 
@@ -17,7 +18,9 @@ public class MainEducation {
         var repo = new PostgresStudentRepository(config);
         var studentID2 = new StudentID(UUID.fromString("e2c7de0e-8ae8-4529-a036-6b7989e81616"));
         var student = repo.studentOfID(studentID2);
+        var students = repo.studentsOfUniversity(new UniversityID(UUID.fromString("b4ee0ded-6e2c-4d52-bfc5-f88e75f8cc07")));
         System.out.println(student.toString());
+        System.out.println(students);
 
         var studentRepo = new InMemoryStudentRepository();
         var universityRepo = new InMemoryUniversityRepository();
