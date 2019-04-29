@@ -43,12 +43,12 @@ public class StudentTest {
         var person = new Person(email, fullName);
         var student = new Student(studentID, person);
 
-        assertEquals(student.email().emailAddress(), "tom@email.com");
+        assertEquals(student.email().email(), "tom@email.com");
 
         var newEmail = new Email("tom_cool@email.com");
         student.changeEmail(newEmail);
 
-        assertEquals(student.email().emailAddress(), "tom_cool@email.com");
+        assertEquals(student.email().email(), "tom_cool@email.com");
     }
 
     @Test

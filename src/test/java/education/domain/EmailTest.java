@@ -11,7 +11,7 @@ public class EmailTest {
         var email = new Email("  tom@eMAIl.com");
 
         assertNotNull(email);
-        assertEquals(email.emailAddress(), "tom@email.com");
+        assertEquals(email.email(), "tom@email.com");
     }
 
     @Test

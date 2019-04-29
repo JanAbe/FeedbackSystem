@@ -4,16 +4,16 @@ import common.cleaners.Clean;
 import common.validators.Validate;
 
 public final class Email {
-    private String emailAddress;
+    private String email;
 
-    public Email(String emailAddress) {
-        this.setEmailAddress(emailAddress);
+    public Email(String email) {
+        this.setEmail(email);
     }
 
     // ---------- Public methods ----------
 
-    public String emailAddress() {
-        return this.emailAddress;
+    public String email() {
+        return this.email;
     }
 
     @Override
@@ -22,7 +22,7 @@ public final class Email {
 
         if (obj != null && obj.getClass() == this.getClass()) {
             var email = (Email) obj;
-            isEqual = this.emailAddress().equals(email.emailAddress());
+            isEqual = this.email().equals(email.email());
         }
 
         return isEqual;
@@ -30,9 +30,9 @@ public final class Email {
 
     // ---------- Private methods ----------
 
-    private void setEmailAddress(String emailAddress) {
+    private void setEmail(String email) {
         // checks here ...
-        Validate.argumentNotNull(emailAddress, "Provided emailAddress can not be null");
-        this.emailAddress = Clean.string(emailAddress);
+        Validate.argumentNotNull(email, "Provided email can not be null");
+        this.email = Clean.string(email);
     }
 }

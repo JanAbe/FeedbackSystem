@@ -85,7 +85,7 @@ public class Student {
         var stringBuilder = new StringBuilder();
         return stringBuilder.append("Student Info: ")
                 .append(this.id().id()).append(" | ")
-                .append(this.email().emailAddress()).append(" | ")
+                .append(this.email().email()).append(" | ")
                 .append(this.fullName().firstName()).append(" ")
                 .append(this.fullName().prefix()).append(" ")
                 .append(this.fullName().lastName()).toString();
