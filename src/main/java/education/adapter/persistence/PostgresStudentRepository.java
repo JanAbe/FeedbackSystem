@@ -14,9 +14,7 @@ import education.domain.university.UniversityID;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,15 +40,21 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
     public Optional<Student> studentOfID(StudentID studentID) {
         final var query = "SELECT * FROM Student WHERE id=?";
         Optional<Student> student = Optional.empty();
+        var columnToField = Map.of("id", "id",
+                                   "email", "email",
+                                   "firstname", "firstName",
+                                   "prefix", "prefix",
+                                   "lastname", "lastName",
+                                   "ref_university", "universityID");
 
         try {
             PreparedStatement statement = this.connection().prepareStatement(query);
             statement.setString(1, studentID.id());
 
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                var mapper = new Mapper<>(Student.class, resultSet);
+            var mapper = new Mapper<>(Student.class, resultSet, columnToField);
 
+            while (resultSet.next()) {
                 try {
                     student = Optional.of(mapper.create());
                 } catch (Exception e) {
