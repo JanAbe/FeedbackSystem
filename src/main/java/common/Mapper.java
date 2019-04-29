@@ -2,7 +2,9 @@ package common;
 
 import java.lang.reflect.Field;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Mapper<T> {
@@ -19,58 +21,44 @@ public class Mapper<T> {
     @SuppressWarnings("unchecked")
     public T create() throws Exception {
         var constructors = type.getConstructors();
-        var attributes = this.attributes();
+        var map = this.fieldToType();
+        var x = this.cast(map, "id", resultSet);
 
-
-        /*
-        itereer langs alle kolommen (keys van de map)
-        pak het bijbehorende field.
-        pak van dit field dmv reflection het type
-        (Type) resultSet.getObject(column)
-         */
-
-        var fieldToType = this.fieldToType();
-        var x = (Class.forName(fieldToType.get("id"))).cast(resultSet.getObject("id"));
-
+        // dit wil ik alleen niet hardcoden, wil door keys van this.columnToField heen loopen,
+        // maar weet niet hoe dat moet in de .newInstance() method;
         return (T) constructors[0].newInstance(
-                /* TODO: getObject gebruiken -> reflection gebruiken om
-                het type en naam van de attributen te achterhalen.
-                Attributen moeten dan wel de kolomnaam matchen.
-                Moet ook een manier verzienen om te achterhalen om de juiste
-                constructor te gebruiken.
-
-                Het probleem: email, firstname, prefix en lastname zijn geen
-                attributen van Student, maar van Person en Email. Ik moet dus reflection
-                gebruiken om de niet-primitieve attributen van student om daarvan de attributen te krijgen.
-                 */
-                resultSet.getString("id"),
-                resultSet.getString("email"),
-                resultSet.getString("firstname"),
-                resultSet.getString("prefix"),
-                resultSet.getString("lastname"),
-                resultSet.getString("ref_university")
+                this.cast(map, "id", resultSet),
+                this.cast(map, "email", resultSet),
+                this.cast(map, "firstname", resultSet),
+                this.cast(map, "prefix", resultSet),
+                this.cast(map, "lastname", resultSet),
+                this.cast(map, "ref_university", resultSet)
         );
     }
 
-    private Map<String, String> fieldToType() {
-        var fieldToType = new HashMap<String, String>();
-        this.columnToField.forEach((c, f) -> {
-            try {
-                var field = type.getDeclaredField(f);
-                var typex = field.getType();
-                var namex = typex.getName();
-                fieldToType.put(f, type.getDeclaredField(f).getType().getName());
-            } catch (Exception e) {
-                System.out.println("Field doesn't exist: " + e);
-            }
-        });
-
-        return fieldToType;
+    private Object cast(Map<String, String> map, String column, ResultSet rs) throws Exception {
+        var field = this.columnToField.get(column);
+        return (Class.forName(map.get(field))).cast(rs.getObject(column));
     }
 
-    public Field[] attributes() {
-        var attributes = type.getDeclaredFields();
-        var x = type.getFields();
-        return attributes;
+    /**
+     * <p>Get all attributes of an object (including attributes of attributes).</p>
+     * @return All attributes
+     */ // TODO: rewrite it so it makes use of recursion? Need to fix naming of keys=attribute-names (StudentID and UniversityID both use id as attribute name);
+    // this is super ghetto though, it only works specifically for Student, o god :c
+    private Map<String, String> fieldToType() {
+        var fieldToType = new HashMap<String, String>();
+        for (Field field : type.getDeclaredFields()) {
+            for (Field f : field.getType().getDeclaredFields()) {
+                if (f.getType().isPrimitive() || (f.getType() == String.class)) {
+                    fieldToType.put(field.getName(), f.getType().getName());
+                    continue;
+                }
+                for (Field f1 : f.getType().getDeclaredFields()) {
+                    fieldToType.put(f1.getName(), f1.getType().getName());
+                }
+            }
+        }
+        return fieldToType;
     }
 }
