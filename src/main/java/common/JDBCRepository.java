@@ -11,6 +11,7 @@ public abstract class JDBCRepository {
     private Connection connection;
     private final static Logger LOGGER = Logger.getLogger(JDBCRepository.class.getName());
 
+    // gotta look into connection pooling
     public JDBCRepository(DatabaseConfig config) {
         this.config = config;
         this.connect();
