@@ -26,24 +26,42 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
         return new StudentID(UUID.randomUUID());
     }
 
-    // also want this method to function as an update
     @Override
     public void save(Student student) {
-        final var query = "INSERT INTO Student(id, email, firstname, prefix, lastname, ref_university) VALUES(?, ?, ?, ?, ?, ?)";
+        final var insertQuery = "INSERT INTO Student(id, email, firstname, prefix, lastname, ref_university) VALUES(?, ?, ?, ?, ?, ?)";
+        final var updateQuery = "UPDATE Student SET email=?, firstname=?, prefix=?, lastname=?, ref_university=? WHERE id=?";
+        var currentStudent = this.studentOfID(student.id());
 
-        try {
-            var statement = dbUtil.prepareStatement(this.connection(), query,
-                    student.id().id(),
-                    student.email().email(),
-                    student.fullName().firstName(),
-                    student.fullName().prefix(),
-                    student.fullName().lastName(),
-                    student.universityID().id());
+        if (currentStudent.isPresent()) {
+            try {
+                var statement = dbUtil.prepareStatement(this.connection(), updateQuery,
+                        student.email().email(),
+                        student.fullName().firstName(),
+                        student.fullName().prefix(),
+                        student.fullName().lastName(),
+                        student.universityID().id(),
+                        student.id().id());
 
-            statement.executeUpdate();
-            statement.close();
-        } catch (SQLException e) {
-            LOGGER.log(Level.INFO, "Exception occurred while saving a student: ", e);
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                LOGGER.log(Level.INFO, "Exception occurred while updating a student: ", e);
+            }
+        } else {
+            try {
+                var statement = dbUtil.prepareStatement(this.connection(), insertQuery,
+                        student.id().id(),
+                        student.email().email(),
+                        student.fullName().firstName(),
+                        student.fullName().prefix(),
+                        student.fullName().lastName(),
+                        student.universityID().id());
+
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                LOGGER.log(Level.INFO, "Exception occurred while inserting a student: ", e);
+            }
         }
     }
 
