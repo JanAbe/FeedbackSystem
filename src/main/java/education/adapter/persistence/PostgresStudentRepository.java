@@ -3,6 +3,7 @@ package education.adapter.persistence;
 import common.DatabaseConfig;
 import common.JDBCRepository;
 import common.dbUtil;
+import common.mappers.Mapper;
 import common.mappers.StudentMapper;
 import education.domain.student.Student;
 import education.domain.student.StudentID;
@@ -16,6 +17,7 @@ import java.util.logging.Logger;
 
 public class PostgresStudentRepository extends JDBCRepository implements StudentRepository {
     private final static Logger LOGGER = Logger.getLogger(PostgresStudentRepository.class.getName());
+    private Mapper<Student> mapper = new StudentMapper();
 
     public PostgresStudentRepository(DatabaseConfig databaseConfig) {
         super(databaseConfig);
@@ -67,16 +69,15 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
 
     @Override
     public Optional<Student> studentOfID(StudentID studentID) {
-        final var query = "SELECT * FROM Student WHERE id=?";
+        final var query = "SELECT id, email, firstname, prefix, lastname, ref_university FROM Student WHERE id=?";
         Optional<Student> student = Optional.empty();
 
         try {
             var statement = dbUtil.prepareStatement(this.connection(), query, studentID.id());
             var resultSet = statement.executeQuery();
-            var mapper = new StudentMapper();
 
             if (resultSet.next()) {
-                student = Optional.of(mapper.createFrom(resultSet));
+                student = Optional.of(this.mapper.createFrom(resultSet));
             }
 
             resultSet.close();
@@ -90,16 +91,15 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
 
     @Override
     public Collection<Student> studentsOfUniversity(UniversityID universityID) {
-        final var query = "SELECT * FROM Student WHERE ref_university=?";
+        final var query = "SELECT id, email, firstname, prefix, lastname, ref_university FROM Student WHERE ref_university=?";
         var students = new HashSet<Student>();
 
         try {
             var statement = dbUtil.prepareStatement(this.connection(), query, universityID.id());
             var resultSet = statement.executeQuery();
-            var mapper = new StudentMapper();
 
             while (resultSet.next()) {
-                students.add(mapper.createFrom(resultSet));
+                students.add(this.mapper.createFrom(resultSet));
             }
 
             resultSet.close();
