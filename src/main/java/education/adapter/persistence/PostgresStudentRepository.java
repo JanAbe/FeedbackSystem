@@ -35,6 +35,10 @@ public class PostgresStudentRepository extends JDBCRepository implements Student
         var currentStudent = this.studentOfID(student.id());
 
         if (currentStudent.isPresent()) {
+            if (currentStudent.get().equals(student)) {
+                return; // Nothing has changed, no reason to update
+            }
+
             try {
                 var statement = dbUtil.prepareStatement(this.connection(), updateQuery,
                         student.email().email(),

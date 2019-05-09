@@ -81,6 +81,22 @@ public class Student {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        var isEqual = false;
+
+        if (obj != null && obj.getClass() == this.getClass()) {
+            var student = (Student) obj;
+            isEqual = this.id().equals(student.id()) &&
+                      this.fullName().equals(student.fullName()) &&
+                      this.email().equals(student.email()) &&
+                      this.universityID().equals(student.universityID()) &&
+                      this.enrolledCourses().equals(student.enrolledCourses());
+        }
+
+        return isEqual;
+    }
+
+    @Override
     public String toString() {
         var stringBuilder = new StringBuilder();
         return stringBuilder.append("Student Info: ")
