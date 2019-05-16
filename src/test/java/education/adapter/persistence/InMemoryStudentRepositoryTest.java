@@ -36,7 +36,8 @@ public class InMemoryStudentRepositoryTest {
         var email = new Email("tom@email.com");
         var fullName = new FullName("tom", "le", "fromage");
         var person = new Person(email, fullName);
-        var student = new Student(studentID, person);
+        var universityID= new UniversityID(UUID.fromString("b4ee0ded-6e2c-4d52-bfc5-f88e75f8cc07"));
+        var student = new Student(studentID, person, universityID);
 
         studentRepository.save(student);
         Optional<Student> foundStudent = studentRepository.studentOfID(studentID);

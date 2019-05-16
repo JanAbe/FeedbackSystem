@@ -15,8 +15,8 @@ public class PeriodTest {
     @Test
     public void testCreate() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        var startDate = LocalDateTime.parse("15-05-2019 15:46:01", formatter);
-        var endDate = LocalDateTime.parse("20-08-2019 16:00:00", formatter);
+        var startDate = LocalDateTime.parse(LocalDateTime.now().plusHours(1).format(formatter), formatter);
+        var endDate = LocalDateTime.parse(LocalDateTime.now().plusMonths(3).format(formatter), formatter);
         var period = new Period(startDate, endDate, TimeZone.getDefault());
 
         assertNotNull(period);
@@ -25,7 +25,7 @@ public class PeriodTest {
     @Test
     public void testSetStartDateThrowsIAE() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        var endDate = LocalDateTime.parse("15-02-2019 15:46:01", formatter);
+        var endDate = LocalDateTime.parse(LocalDateTime.now().plusMonths(3).format(formatter), formatter);
 
         assertThrows(IllegalArgumentException.class, () -> {
             // the constructor of Period uses the setStartDate() method
@@ -35,9 +35,10 @@ public class PeriodTest {
 
     @Test
     public void testSetStartDateThrowsIDE() {
+        // StartDate before CurrentDate
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         var startDate = LocalDateTime.parse("12-01-2014 12:30:32", formatter);
-        var endDate = LocalDateTime.parse("15-02-2019 15:46:01", formatter);
+        var endDate = LocalDateTime.parse(LocalDateTime.now().plusMonths(3).format(formatter), formatter);
 
         assertThrows(IllegalDateException.class, () -> {
             // the constructor of Period uses the setStartDate() method
@@ -48,7 +49,7 @@ public class PeriodTest {
     @Test
     public void testSetEndDateThrowsIAE() {
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        var startDate = LocalDateTime.parse("15-05-2019 15:46:01", formatter);
+        var startDate = LocalDateTime.parse(LocalDateTime.now().plusHours(1).format(formatter), formatter);
 
         assertThrows(IllegalArgumentException.class, () -> {
             // the constructor of Period uses the setEndDate() method
@@ -58,8 +59,9 @@ public class PeriodTest {
 
     @Test
     public void testSetEndDateThrowsIDE() {
+        // EndDate before StartDate
         var formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        var startDate = LocalDateTime.parse("15-05-2019 15:46:01", formatter);
+        var startDate = LocalDateTime.parse(LocalDateTime.now().plusHours(1).format(formatter), formatter);
         var endDate = LocalDateTime.parse("12-01-2014 12:30:32", formatter);
 
         assertThrows(IllegalDateException.class, () -> {
