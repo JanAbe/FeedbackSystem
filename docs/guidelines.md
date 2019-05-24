@@ -10,3 +10,22 @@
 - Separate a subject line from a commit body using a blank line
 
 - Guidelines taken (and slightly adjusted) from: https://chris.beams.io/posts/git-commit/
+
+#### Java 
+
+##### - Methods
+curly braces must start on the same line as the method declaration
+```java
+// Good:
+public void getName() {
+    
+}
+
+// Bad:
+public void getName()
+{
+    
+}
+```
+
+
