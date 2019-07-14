@@ -22,3 +22,7 @@ buildNumber.properties
 
 # Custom config
 .config/
+
+.classpath
+.project
+.settings/
