@@ -25,7 +25,7 @@ public class EmailTest {
     @Test
     public void testEquality() {
         var email1 = new Email("tom@email.com");
-        var email2 = new Email("tom@email.com");
+        var email2 = new Email("bob@email.com");
         var email3 = new Email("tom@email.com");
 
         assertNotEquals(email1, email2);
