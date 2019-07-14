@@ -1,1 +1,1 @@
-A feedbacksystem, inspired by Teammates' project, used to practice DDD design.
+A system to give feedback on your peers, inspired by Teammates' project to try to make something of high quality
