@@ -1,4 +1,4 @@
-package education.domain;
+package common;
 
 import common.cleaners.Clean;
 import common.validators.Validate;

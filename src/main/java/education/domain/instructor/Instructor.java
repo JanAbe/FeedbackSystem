@@ -1,8 +1,8 @@
 package education.domain.instructor;
 
-import education.domain.Email;
-import education.domain.FullName;
-import education.domain.Person;
+import common.Email;
+import common.FullName;
+import common.Person;
 import education.domain.course.Course;
 import education.domain.course.CourseID;
 import common.validators.Validate;

@@ -23,7 +23,12 @@ public class StudentResource {
         this.studentService = new StudentService(this.studentRepository, this.universityRepository);
     }
 
-    // ---------- Public methods ----------
+    // ---------- Public methods -----------
+    // ||                                 ||
+    // ||                                 ||
+    // ||                                 ||
+    // ||                                 ||
+    // -------------------------------------
 
     @GET
     @Path("/{id}")
@@ -32,9 +37,12 @@ public class StudentResource {
         var student = this.studentService.requestStudent(studentID);
         Validate.resourceNotAbsent(student);
 
-        return Response.status(Response.Status.OK)
-                .entity(student.get())
-                .build();
+        System.out.println(student.toString());
+
+        // TODO: need to find a way to return the found Student in json format
+        return Response.status(Response.Status.OK).build();
+//                .entity(student.get())
+//                .build();
     }
 
     // TODO: add start and size query parameters so the
@@ -51,20 +59,26 @@ public class StudentResource {
                 .build();
     }
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response addStudent(String email,
-                               String firstName,
-                               String prefix,
-                               String lastName) {
-
-        var createdStudent = this.studentService.addStudent(email, firstName, prefix, lastName);
-        Validate.notNull(createdStudent, "Created student is null");
-
-        return Response.status(Response.Status.CREATED)
-                .entity(createdStudent)
-                .build();
-    }
+    // TODO: find out how to make the code below work.
+    // atm it raises an error, stating that the args aren't annotated
+    // What annotation do I need if i want to consider the args as individual json parts
+    // Maybe that's where it breaks. I don't think i can do the thing described in the line above,
+    // also it doesn't really make sense i think. It expects a jsonobject (because of the application_json annotation)
+    // maybe i need to replace all args with Student s.
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public Response addStudent(String email,
+//                               String firstName,
+//                               String prefix,
+//                               String lastName) {
+//
+//        var createdStudent = this.studentService.addStudent(email, firstName, prefix, lastName);
+//        Validate.notNull(createdStudent, "Created student is null");
+//
+//        return Response.status(Response.Status.CREATED)
+//                .entity(createdStudent)
+//                .build();
+//    }
 
     @PATCH
     @Path("/enroll/{studentID}/{universityID}") // I believe this is not really REST like....
@@ -81,6 +95,11 @@ public class StudentResource {
     }
 
     // ---------- Private methods ----------
+    // ||                                 ||
+    // ||                                 ||
+    // ||                                 ||
+    // ||                                 ||
+    // -------------------------------------
 
     private void setStudentRepository(StudentRepository studentRepository) {
         Validate.argumentNotNull(studentRepository, "StudentRepository can not be null");

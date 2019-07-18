@@ -9,14 +9,7 @@ import java.util.Set;
 public final class Question {
     private String text;
     private Set<Response> responses;
-    private Asker asker;
-    private InstructorID asker1;
-
-    public Question(String text, Asker asker) {
-        this.setQuestionText(text);
-        this.setAsker(asker);
-        this.responses = new HashSet<>();
-    }
+    private InstructorID asker;
 
     public Question(String text, InstructorID asker) {
         this.setQuestionText(text);
@@ -30,7 +23,7 @@ public final class Question {
         return this.text;
     }
 
-    public Asker asker() {
+    public InstructorID asker() {
         return this.asker;
     }
 
@@ -71,13 +64,8 @@ public final class Question {
         this.text = questionText;
     }
 
-    private void setAsker(Asker asker) {
-        Validate.argumentNotNull(asker, "Provided asker can not be null");
-        this.asker = asker;
-    }
-
     private void setAsker(InstructorID asker) {
         Validate.argumentNotNull(asker, "Provided asker can not be null");
-        this.asker1 = asker;
+        this.asker = asker;
     }
 }

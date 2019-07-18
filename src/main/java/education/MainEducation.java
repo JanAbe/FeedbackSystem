@@ -1,17 +1,12 @@
 package education;
 
 import common.DatabaseConfig;
-import education.adapter.persistence.InMemoryStudentRepository;
-import education.adapter.persistence.InMemoryUniversityRepository;
 import education.adapter.persistence.PostgresStudentRepository;
-import education.adapter.rest.StudentResource;
-import education.domain.Email;
-import education.domain.FullName;
-import education.domain.Person;
+import common.Email;
+import common.FullName;
+import common.Person;
 import education.domain.student.Student;
 import education.domain.student.StudentID;
-import education.domain.university.Country;
-import education.domain.university.University;
 import education.domain.university.UniversityID;
 
 import java.util.UUID;
@@ -35,6 +30,7 @@ public class MainEducation {
 
         repo.save(newStudent);
 
+        // var feedbackSession = new FeedbackSession();
 //        var studentRepo = new InMemoryStudentRepository();
 //        var universityRepo = new InMemoryUniversityRepository();
 //        var studentResource = new StudentResource(studentRepo, universityRepo);

@@ -1,8 +1,8 @@
 package education.application.student;
 
-import education.domain.Email;
-import education.domain.FullName;
-import education.domain.Person;
+import common.Email;
+import common.FullName;
+import common.Person;
 import education.domain.student.Student;
 import education.domain.student.StudentID;
 import education.domain.student.StudentRepository;

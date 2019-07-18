@@ -1,0 +1,70 @@
+--------------------------------
+The program needs to handle conccurent use, multiple participants can answer at the same time. The others should be able to see their answers.
+--------------------------------
+
+Do you want to start a feedbacksession?
+- yes
+
+Do you want to use a standard feedbacksession template?
+- no
+
+Add questions below:
+- What did you think about the communication between the teammembers?
+- What did you think went well?
+- What did you think went badly?
+
+Whom do you want to invite to participate in this feedbacksession?
+- bobby
+- tom
+- fred
+
+system: bobby you have been invited to participate in the feedbacksession "feedback course XYZ" from instructor "AB".
+
+===============================================================================
+FeedbackSession - Course XYZ - Public Variant
+Questions:
+- What did you think about the communication between the teammembers?
+	- Bobby: It was ok
+	- Tom: It was bad, fred didn't say shit
+
+- What did you think went well?
+	- Bobby: Coming up with solutions for the problem 
+
+- What did you think went badly?
+	- Tom: The communication with the other teammembers
+	- Bobby: Also the communication. Also, Fred didn't do anything :(
+
+===============================================================================
+FeedbackSession - Course XYZ - Anonymous Variant
+Questions:
+- What did you think about the communication between the teammembers?
+	- IaAE31: It was ok
+	- XLAEOm: It was bad, fred didn't say shit
+		- IaAE31: Yeah, True
+
+- What did you think went well?
+	- IaAE31: Coming up with solutions for the problem 
+
+- What did you think went badly?
+	- XLAEOm: The communication with the other teammembers
+	- IaAE31: Also the communication. Also, Fred didn't do anything :(
+
+===============================================================================
+system: The feedbacksession "feedback course XYZ" from instructor "AB" has been closed.
+
+Instructor "AB" do you want to generate a PDF document from the just closed feedbacksession?
+- yes
+
+
+FeedbackSession "Feedback course XYZ" PDF | Course XYZ | From 10-07-2019 to 17-07-2019
+Questions, Answers and Responses:
+- What did you think about the communication between the teammembers?
+	- Bobby: It was ok
+	- Tom: It was bad, fred didn't say shit
+
+- What did you think went well?
+	- Bobby: Coming up with solutions for the problem 
+
+- What did you think went badly?
+	- Tom: The communication with the other teammembers
+	- Bobby: Also the communication. Also, Fred didn't do anything :(

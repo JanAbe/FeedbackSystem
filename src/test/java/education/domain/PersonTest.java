@@ -1,5 +1,8 @@
 package education.domain;
 
+import common.Email;
+import common.FullName;
+import common.Person;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
